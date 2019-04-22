@@ -33,4 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rspec-rails', '~> 3.1'
   spec.add_development_dependency 'solr_wrapper', '>= 1.1', '< 3.0'
   spec.add_development_dependency "sqlite3"
+  spec.add_development_dependency "bixby"
 end
