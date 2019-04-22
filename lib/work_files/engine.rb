@@ -1,0 +1,4 @@
+module WorkFiles
+  class Engine < ::Rails::Engine
+  end
+end
