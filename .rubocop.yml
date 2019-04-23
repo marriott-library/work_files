@@ -1,2 +1,70 @@
 inherit_gem:
   bixby: bixby_default.yml
+
+AllCops:
+  TargetRubyVersion: 2.3
+  DisplayCopNames: true
+  Exclude:
+    - 'db/**/*'
+    - 'spec/test_app_templates/**/*'
+
+Metrics/BlockLength:
+  ExcludedMethods: ['included']
+  Exclude:
+    - 'config/routes.rb'
+    - 'lib/tasks/*.rake'
+    - 'spec/**/*.rb'
+
+# Naming/FileName: # https://github.com/bbatsov/rubocop/issues/2973
+#   Exclude:
+#     - 'Gemfile'
+
+Style/AsciiComments:
+  Enabled: false
+
+Style/CollectionMethods:
+  PreferredMethods:
+    collect: 'map'
+    collect!: 'map!'
+    inject: 'reduce'
+    detect: 'find'
+    find_all: 'select'
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/SingleLineBlockParams:
+  Enabled: false
+
+Rails/ApplicationJob:
+  Enabled: false
+
+Rails/ApplicationRecord:
+  Enabled: false
+
+Rails/DynamicFindBy:
+  Enabled: false
+
+RSpec/ExampleLength:
+Max: 11
+
+RSpec/MessageSpies:
+  Enabled: false
+
+RSpec/ExpectActual:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/MessageExpectation:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/LeadingSubject:
+  Enabled: false
