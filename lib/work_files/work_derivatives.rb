@@ -1,6 +1,6 @@
 require 'hyrax'
 
-module Data
+module WorkFiles
   # Disable below metric, for now, not splitting this class into modules,
   #   which would just make for more complexity and hinder readabilty.
   #   TODO: consider compositional refactoring (not mixins), but this
@@ -8,8 +8,8 @@ module Data
   #         higher applied/practical complexity.
   # rubocop:disable Metrics/ClassLength
   class WorkDerivatives
-    include WorkFiles::FilesetHelper
-    include WorkFiles::PathHelper
+    include FilesetHelper
+    include PathHelper
 
     # Work is primary adapted context
     # @return [ActiveFedora::Base] Hyrax work-type object

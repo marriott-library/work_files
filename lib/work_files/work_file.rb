@@ -2,7 +2,7 @@
 
 require 'hyrax'
 
-module Data
+module WorkFiles
   # WorkFile is a read-only convenience wrapper for just-in-time
   #   file operations, and is the type of values returned by
   #   WorkFiles::WorkFiles (container) adapter.

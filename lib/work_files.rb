@@ -1,8 +1,8 @@
 require 'work_files/engine'
-require 'fileset_helper'
-require 'path_helper'
-require 'work_files'
-require 'work_derivatives'
+require 'work_files/fileset_helper'
+require 'work_files/path_helper'
+require 'work_files/work_files'
+require 'work_files/work_derivatives'
 
 # WorkFiles namespace...
 module WorkFiles

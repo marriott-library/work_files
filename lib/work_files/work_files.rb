@@ -1,6 +1,6 @@
-module Data
+module WorkFiles
   class WorkFiles
-    include WorkFiles::PathHelper
+    include PathHelper
 
     attr_accessor :work, :assigned, :unassigned
     delegate :include?, to: :keys
