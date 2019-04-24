@@ -1,7 +1,7 @@
 require 'rails/generators'
 
 class TestAppGenerator < Rails::Generators::Base
-  source_root "./spec/test_app_templates"
+  source_root File.join(WorkFiles::GEM_PATH, "spec/test_app_templates")
 
   # if you need to generate any additional configuration
   # into the test app, this generator will be run immediately
@@ -13,6 +13,10 @@ class TestAppGenerator < Rails::Generators::Base
 
   def install_engine
     generate 'work_files:install'
+  end
+
+  def inject_work_type
+    copy_file 'app/models/work.rb'
   end
 
   def db_migrations
