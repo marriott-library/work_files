@@ -17,6 +17,7 @@ class TestAppGenerator < Rails::Generators::Base
 
   def inject_work_type
     copy_file 'app/models/work.rb'
+    copy_file 'app/actors/hyrax/actors/work_actor.rb'
   end
 
   def db_migrations
