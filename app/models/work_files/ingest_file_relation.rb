@@ -1,5 +1,8 @@
 module WorkFiles
   class IngestFileRelation < ApplicationRecord
+    # namespaced, explicit table name:
+    self.table_name = 'work_files_ingest_file_relations'
+
     validates :file_path, presence: true
     validates :derivative_path, presence: true
 
