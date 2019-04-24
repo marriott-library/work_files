@@ -2,6 +2,7 @@ require 'work_files/engine'
 require 'work_files/fileset_helper'
 require 'work_files/path_helper'
 require 'work_files/work_files'
+require 'work_files/work_file'
 require 'work_files/work_derivatives'
 
 # WorkFiles namespace...
@@ -24,7 +25,7 @@ module WorkFiles
   def self.handle_queued_derivative_attachments(file_set)
     return if file_set.import_url.nil?
     work = file_set.member_of.select(&:work?)[0]
-    derivatives = WorkFiles::WorkDerivatives.of(work)
+    derivatives = WorkDerivatives.of(work)
     # For now, because derivative attachment in Hyrax is IO-bound operation,
     #   it makes sense to have to run inline without any async job:
     derivatives.commit_queued!(file_set)

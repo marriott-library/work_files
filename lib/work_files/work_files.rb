@@ -29,7 +29,7 @@ module WorkFiles
       return @derivatives unless @derivatives.nil?
       if fileset.nil?
         # for the deferred assignement case, we have no fileset yet...
-        work_file = WorkFiles::WorkFile.of(work, nil, self)
+        work_file = WorkFile.of(work, nil, self)
         return work_file.derivatives
       end
       # Otherwise, delegate actual construction to WorkFile.derivatives:
@@ -118,14 +118,14 @@ module WorkFiles
       def get_by_fileset_id(id)
         nil unless keys.include?(id)
         fileset = FileSet.find(id)
-        WorkFiles::WorkFile.of(work, fileset, self)
+        WorkFile.of(work, fileset, self)
       end
 
       # Get one WorkFile object based on filename in metadata
       def get_by_filename(name)
         r = filesets.select { |fs| original_name(fs) == name }
         # checkout first match
-        r.empty? ? nil : WorkFiles::WorkFile.of(work, r[0], self)
+        r.empty? ? nil : WorkFile.of(work, r[0], self)
       end
 
       def original_name(fileset)

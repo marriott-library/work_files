@@ -73,7 +73,7 @@ module WorkFiles
     # Derivatives for fileset associated with this primary file object
     # @return [WorkFiles::WorkDerviatives] derivatives adapter
     def derivatives
-      WorkFiles::WorkDerivatives.of(work, fileset, self)
+      WorkDerivatives.of(work, fileset, self)
     end
 
     private

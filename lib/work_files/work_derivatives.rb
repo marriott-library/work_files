@@ -248,14 +248,14 @@ module WorkFiles
       def log_primary_file_relation(path)
         file_path = primary_file_path
         return if file_path.nil?
-        WorkFiles::IngestFileRelation.create!(
+        IngestFileRelation.create!(
           file_path: file_path,
           derivative_path: path
         )
       end
 
       def log_assignment(path, name)
-        WorkFiles::DerivativeAttachment.create!(
+        DerivativeAttachment.create!(
           fileset_id: fileset_id,
           path: path,
           destination_name: name
@@ -265,12 +265,12 @@ module WorkFiles
 
       def unlog_assignment(path, name)
         if fileset_id.nil?
-          WorkFiles::DerivativeAttachment.where(
+          DerivativeAttachment.where(
             path: path,
             destination_name: name
           ).destroy_all
         else
-          WorkFiles::DerivativeAttachment.where(
+          DerivativeAttachment.where(
             fileset_id: fileset_id,
             path: path,
             destination_name: name
