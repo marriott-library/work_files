@@ -30,11 +30,10 @@ module WorkFiles
       return if whitelisted_path(path)
       # we cannot use path if it is not whitelisted for Hyrax ingest, we
       #   would prefer to fail early vs. later+silently
-      raise(
+      raise \
         SecurityError,
         "The path specified is not configured in Hyrax ingest whitelist: " \
         "#{path}"
-      )
     end
   end
 end
