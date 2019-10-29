@@ -21,6 +21,46 @@ ActiveJob::Base.queue_adapter = :test
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
 
+  # Clean repository before suite runs, always starting fresh
+  config.before(:suite) do
+    require 'active_fedora/cleaner'
+    ActiveFedora::Cleaner.clean!
+  end
+
+  # ensure Hyrax has active sipity workflow for default admin set:
+  config.before(:suite) do
+    begin
+      # ensure permission template actually exists in RDBMS:
+      id = 'admin_set/default'
+      no_template = Hyrax::PermissionTemplate.find_by(source_id: id).nil?
+      Hyrax::PermissionTemplate.create!(source_id: id) if no_template
+      # ensure workflows exist, presumes permission template does first:
+      Hyrax::Workflow::WorkflowImporter.load_workflows
+      # Default admin set needs to exist in Fedora, with relation to its
+      #   PermissionTemplate object:
+      begin
+        admin_set = AdminSet.find(AdminSet.find_or_create_default_admin_set_id)
+        admin_set.save!
+      rescue ActiveRecord::RecordNotUnique
+        admin_set = AdminSet.find(AdminSet::DEFAULT_ID)
+      end
+      permission_template = admin_set.permission_template
+      workflow = permission_template.available_workflows.where(
+        name: 'default'
+      ).first
+      Sipity::Workflow.activate!(
+        permission_template: permission_template,
+        workflow_id: workflow.id
+      )
+    rescue Faraday::ConnectionFailed
+      STDERR.puts "Attempting to run test suite without Fedora and/or Solr..."
+    end
+  end
+
+  config.before(:suite) do
+    Hyrax.config.register_curation_concern :work
+  end
+
   # Transactional
   config.use_transactional_fixtures = false
 

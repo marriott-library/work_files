@@ -25,8 +25,11 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]
 
-  spec.add_dependency "rails", "~> 5.0"
-  spec.add_dependency "hyrax", "~> 2.5"
+  spec.add_dependency "rails", "~> 5.1"
+  # works with Hyrax 2.x > 2.5.1, 3.x
+  spec.add_dependency "hyrax", ">= 2.5.1", "<4"
+  # -- UNCOMMENT BELOW TO TEST PRERELEASE --
+  # spec.add_dependency "hyrax", "3.0.0.pre.rc1"
 
   spec.add_development_dependency 'engine_cart', '~> 2.2'
   spec.add_development_dependency 'fcrepo_wrapper', '~> 0.5', '>= 0.5.1'
