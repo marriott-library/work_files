@@ -14,21 +14,24 @@ require 'engine_cart'
 EngineCart.load_application!
 
 require 'rspec/rails'
-# require 'rspec/active_model/mocks'
+# monkey patch Hyrax::VirusScanner#null_scanner to be quiet:
+module Hyrax
+  class VirusScanner
+    def null_scanner
+      false # no warning output, just correct return value
+    end
+  end
+end
 
 ActiveJob::Base.queue_adapter = :test
 
 RSpec.configure do |config|
-  config.infer_spec_type_from_file_location!
-
-  # Clean repository before suite runs, always starting fresh
+  # start with clean repository, active sipity workflow for default admin set:
   config.before(:suite) do
+    # completely clean repository before suite:
     require 'active_fedora/cleaner'
     ActiveFedora::Cleaner.clean!
-  end
 
-  # ensure Hyrax has active sipity workflow for default admin set:
-  config.before(:suite) do
     begin
       # ensure permission template actually exists in RDBMS:
       id = 'admin_set/default'
